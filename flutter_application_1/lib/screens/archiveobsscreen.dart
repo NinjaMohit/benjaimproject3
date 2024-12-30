@@ -200,154 +200,142 @@ class _ArchiveObsScreenState extends State<ArchiveObsScreen> {
             child: ListView.builder(
               itemCount: cardData.length,
               itemBuilder: (context, index) {
-                return Flexible(
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                        top: height * 0,
-                        bottom: height * 0,
-                        left: width * 3,
-                        right: height * 1),
-                    child: Card(
-                      elevation: 7.5,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        side: const BorderSide(color: Colors.black, width: 0.8),
-                      ),
-                      child: SizedBox(
-                        height: height * 15.6, // Responsive height
-                        width: width * 80, // Responsive width
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(
-                                top: height * 1.7,
-                                left: width * 2,
+                return Padding(
+                  padding: EdgeInsets.only(
+                      top: height * 0,
+                      bottom: height * 0,
+                      left: width * 3,
+                      right: height * 1),
+                  child: Card(
+                    elevation: 7.5,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4),
+                      side: const BorderSide(color: Colors.black, width: 0.8),
+                    ),
+                    child: SizedBox(
+                      height: height * 15.6, // Responsive height
+                      width: width * 80, // Responsive width
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(
+                              top: height * 1.7,
+                              left: width * 2,
+                              bottom: height * 1,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Title',
+                                  style: GoogleFonts.inter(
+                                    fontSize: 14,
+                                    color: HexColor("#000000"),
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                SizedBox(
+                                    height: height * 1.5), // Responsive spacing
+
+                                Text(
+                                  'ID',
+                                  style: GoogleFonts.inter(
+                                    fontSize: 14,
+                                    color: HexColor("#000000"),
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                SizedBox(height: height * 1.5),
+                                Text(
+                                  'Date Found',
+                                  style: GoogleFonts.inter(
+                                    fontSize: 14,
+                                    color: HexColor("#000000"),
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(width: width * 3),
+                          Padding(
+                            padding: EdgeInsets.only(
+                              top: height * 1.7,
+                              left: width * 2,
+                              bottom: height * 1,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(''),
+                                SizedBox(height: height * 1.5),
+                                Text(
+                                  'Location',
+                                  style: GoogleFonts.inter(
+                                    fontSize: 14,
+                                    color: HexColor("#000000"),
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                SizedBox(height: height * 1.5),
+                                Text(
+                                  'Criticality',
+                                  style: GoogleFonts.inter(
+                                    fontSize: 14,
+                                    color: HexColor("#000000"),
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const Spacer(),
+                          Container(
+                            padding: EdgeInsets.only(
+                                top: height * 1.5,
                                 bottom: height * 1,
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Flexible(
-                                    child: Text(
-                                      'Title',
-                                      style: GoogleFonts.inter(
-                                        fontSize: 14,
-                                        color: HexColor("#000000"),
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                      height:
-                                          height * 1.5), // Responsive spacing
-                                  Flexible(
-                                    child: Text(
-                                      'ID',
-                                      style: GoogleFonts.inter(
-                                        fontSize: 14,
-                                        color: HexColor("#000000"),
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(height: height * 1.5),
-                                  Flexible(
-                                    child: Text(
-                                      'Date Found',
-                                      style: GoogleFonts.inter(
-                                        fontSize: 14,
-                                        color: HexColor("#000000"),
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                right: width * 2),
+                            alignment: Alignment.center,
+                            child: Column(
+                              children: [
+                                const Text(''),
+                                SizedBox(height: height * 1.5),
+                                const Text(''),
+                                SizedBox(height: height * 0.9),
+                                Icon(
+                                  Icons.camera_alt,
+                                  size: 27,
+                                  color: cardData[index] % 2 == 1
+                                      ? HexColor("#000000")
+                                      : Colors.black26,
+                                ),
+                              ],
                             ),
-                            SizedBox(width: width * 3),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                top: height * 1.7,
-                                left: width * 2,
-                                bottom: height * 1,
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(''),
-                                  SizedBox(height: height * 1.5),
-                                  Flexible(
-                                    child: Text(
-                                      'Location',
-                                      style: GoogleFonts.inter(
-                                        fontSize: 14,
-                                        color: HexColor("#000000"),
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(height: height * 1.5),
-                                  Flexible(
-                                    child: Text(
-                                      'Criticality',
-                                      style: GoogleFonts.inter(
-                                        fontSize: 14,
-                                        color: HexColor("#000000"),
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                          ),
+                          Container(
+                            height: height * 15, // Responsive height
+                            width: 1,
+                            color: Colors.black,
+                          ),
+                          Container(
+                            height: height * 15.6, // Responsive height
+                            width: width * 17, // Responsive width
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(2),
+                              color: cardData[index] % 2 == 1
+                                  ? HexColor("#C4C4C4")
+                                  : HexColor("#3AAEFC"),
+                              border: Border.all(width: 1),
                             ),
-                            const Spacer(),
-                            Container(
-                              padding: EdgeInsets.only(
-                                  top: height * 1.5,
-                                  bottom: height * 1,
-                                  right: width * 2),
-                              alignment: Alignment.center,
-                              child: Column(
-                                children: [
-                                  const Text(''),
-                                  SizedBox(height: height * 1.5),
-                                  const Text(''),
-                                  SizedBox(height: height * 0.9),
-                                  Icon(
-                                    Icons.camera_alt,
-                                    size: 27,
-                                    color: cardData[index] % 2 == 1
-                                        ? HexColor("#000000")
-                                        : Colors.black26,
-                                  ),
-                                ],
-                              ),
+                            child: const Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Add more content here if needed
+                              ],
                             ),
-                            Container(
-                              height: height * 15, // Responsive height
-                              width: 1,
-                              color: Colors.black,
-                            ),
-                            Container(
-                              height: height * 15.6, // Responsive height
-                              width: width * 17, // Responsive width
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(2),
-                                color: cardData[index] % 2 == 1
-                                    ? HexColor("#C4C4C4")
-                                    : HexColor("#3AAEFC"),
-                                border: Border.all(width: 1),
-                              ),
-                              child: const Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  // Add more content here if needed
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ),

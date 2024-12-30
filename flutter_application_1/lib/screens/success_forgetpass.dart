@@ -58,92 +58,83 @@ class _SuccessForgetpassState extends State<SuccessForgetpass> {
                     height:
                         height * 50, // Adjusted height to better fit content
                     width: width * 100,
-                    child: Flexible(
-                      child: AlertDialog(
-                        backgroundColor: HexColor("#F0F0F0"),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        title: Center(
-                          child: Flexible(
-                            child: Text(
-                              'Success',
-                              style: GoogleFonts.inter(
-                                fontSize: 22,
-                                color: HexColor("#000000"),
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
+                    child: AlertDialog(
+                      backgroundColor: HexColor("#F0F0F0"),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      title: Center(
+                        child: Text(
+                          'Success',
+                          style: GoogleFonts.inter(
+                            fontSize: 22,
+                            color: HexColor("#000000"),
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
+                      ),
 
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: width * 6),
-                        content: Column(
-                          mainAxisSize:
-                              MainAxisSize.min, // Minimize height usage
-                          children: [
-                            SizedBox(
-                              height: height * 1,
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: width * 6),
+                      content: Column(
+                        mainAxisSize: MainAxisSize.min, // Minimize height usage
+                        children: [
+                          SizedBox(
+                            height: height * 1,
+                          ),
+                          Text(
+                            'If your email address is registered, your login information has been sent to your email.',
+                            style: GoogleFonts.inter(
+                              fontSize: 14,
+                              color: HexColor("#000000"),
+                              fontWeight: FontWeight.w500,
                             ),
-                            Flexible(
+                          ),
+                        ],
+                      ),
+                      actionsPadding: EdgeInsets.fromLTRB(0, width * 3, 0,
+                          0), // Remove extra space between content and button
+                      actions: [
+                        Center(
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const DoubleloginScreen()));
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              height: height * 7,
+                              width: width * 30,
+                              decoration: BoxDecoration(
+                                color: HexColor("#8F8F8F"),
+                                borderRadius: BorderRadius.circular(2),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: HexColor("4c4c4c"),
+                                    spreadRadius: 0,
+                                    blurRadius: 2,
+                                    offset: const Offset(0, 4),
+                                  ),
+                                ],
+                              ),
                               child: Text(
-                                'If your email address is registered, your login information has been sent to your email.',
+                                'Close',
                                 style: GoogleFonts.inter(
-                                  fontSize: 14,
-                                  color: HexColor("#000000"),
+                                  fontSize: 20,
+                                  color: HexColor("#FFFFFF"),
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
                             ),
-                          ],
-                        ),
-                        actionsPadding: EdgeInsets.fromLTRB(0, width * 3, 0,
-                            0), // Remove extra space between content and button
-                        actions: [
-                          Center(
-                            child: Flexible(
-                              child: GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const DoubleloginScreen()));
-                                },
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  height: height * 7,
-                                  width: width * 30,
-                                  decoration: BoxDecoration(
-                                    color: HexColor("#8F8F8F"),
-                                    borderRadius: BorderRadius.circular(2),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: HexColor("4c4c4c"),
-                                        spreadRadius: 0,
-                                        blurRadius: 2,
-                                        offset: const Offset(0, 4),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Text(
-                                    'Close',
-                                    style: GoogleFonts.inter(
-                                      fontSize: 20,
-                                      color: HexColor("#FFFFFF"),
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
                           ),
-                          SizedBox(
-                            height: height * 2,
-                          )
-                        ],
-                      ),
+                        ),
+                        SizedBox(
+                          height: height * 2,
+                        )
+                      ],
                     ),
                   ),
                 ],

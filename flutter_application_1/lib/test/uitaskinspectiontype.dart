@@ -42,6 +42,13 @@ class _UiTaskinspectiontypeState extends State<UiTaskinspectiontype> {
                           crossAxisAlignment: CrossAxisAlignment
                               .start, // Align text to the start
                           children: [
+                            // Text(
+                            //   inspectionType.idNo.toString(),
+                            //   style: const TextStyle(
+                            //     fontWeight: FontWeight.bold,
+                            //     fontSize: 20,
+                            //   ),
+                            // ),
                             Text(
                               inspectionType.inspectionId.toString(),
                               style: const TextStyle(

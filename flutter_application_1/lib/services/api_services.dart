@@ -3,9 +3,9 @@ import 'dart:developer';
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  static const String _baseUrl = 'http://10.0.2.2:3000/api/v1';
-//  static const String _baseUrl = 'http://192.168.1.40:3000/api/v1';
-  // static const String _baseUrl = 'http://192.168.1.40:3000/api/v1';
+  //static const String _baseUrl = 'http://10.0.2.2:3000/api/v1';
+  static const String _baseUrl = 'http://192.168.20.223:3000/api/v1';
+//static const String _baseUrl = 'http://192.168.1.39:3000/api/v1';
 
   // Directly use the provided Bearer token
   final String _apiToken =
@@ -43,10 +43,11 @@ class ApiService {
   //http://localhost:3000/api/v1/tasks/getInspectionTypes
   Future<List<dynamic>?> fetchTaskInspectionTypes() async {
     final url = Uri.parse('$_baseUrl/tasks/getInspectionTypes');
+
     // Updated endpoint for fetching task inspection
 
-    // final url =
-    //     Uri.parse('http://192.168.1.40:3000/api/v1/tasks/getInspectionTypes');
+    // final url = Uri.parse(
+    //     'http://192.168.187.223:3000/api/v1/tasks/getInspectionTypes');
     try {
       final response = await http.get(url, headers: _getHeaders());
       if (response.statusCode == 200) {
@@ -66,7 +67,7 @@ class ApiService {
 
   Future<List<dynamic>?> fetchFrameworkOrganisations() async {
     final url = Uri.parse(
-        '$_baseUrl/frameworks/getLocations'); // Updated endpoint for fetching framework organisations
+        '$_baseUrl/frameworks/getLocation/210'); // Updated endpoint for fetching framework organisations
 
     // final url =
     //     Uri.parse('http://192.168.1.40:3000/api/v1/frameworks/getLocations');
@@ -231,7 +232,7 @@ class ApiService {
   // Fetching task expired notifications from API
   Future<List<dynamic>?> fetchTaskExpiredNotifications() async {
     final url = Uri.parse(
-        '$_baseUrl/tasks/getTaskExpiredNotifications'); // Endpoint for fetching task expired notifications
+        '$_baseUrl/tasks/getTaskExpiredNotifications/210/47'); // Endpoint for fetching task expired notifications
 
     try {
       final response = await http.get(url, headers: _getHeaders());
@@ -250,7 +251,7 @@ class ApiService {
   // Fetching task expired notifications from API
   Future<List<dynamic>?> fetchTaskExpiringNotificationsSendDates() async {
     final url = Uri.parse(
-        '$_baseUrl/tasks/getTaskExpiringNotifications'); // Endpoint for fetching task expired notifications
+        '$_baseUrl/tasks/getTaskExpiringNotifications/210/47'); // Endpoint for fetching task expired notifications
 
     try {
       final response = await http.get(url, headers: _getHeaders());
@@ -324,7 +325,7 @@ class ApiService {
 
   Future<List<dynamic>?> fetchTaskWorkscopeCertIndicators() async {
     final url = Uri.parse(
-        '$_baseUrl/tasks/getTaskWorkscopeCertIndicator/IgJnkuf13yggQFI8R'); // Endpoint for fetching task expired notifications
+        '$_baseUrl/tasks/getTaskWorkscopeCertIndicator/210/47'); // Endpoint for fetching task expired notifications
 
     try {
       final response = await http.get(url, headers: _getHeaders());
@@ -342,7 +343,7 @@ class ApiService {
 
   Future<List<dynamic>?> fetchTaskWorkscopeItem() async {
     final url = Uri.parse(
-        '$_baseUrl/tasks/getTaskWorkscopeItems/13jiPDYTFqiYkE4pI'); // Endpoint for fetching task expired notifications
+        '$_baseUrl/tasks/getTaskWorkscopeItems/210/47'); // Endpoint for fetching task expired notifications
 
     try {
       final response = await http.get(url, headers: _getHeaders());
@@ -360,29 +361,20 @@ class ApiService {
     // Return null if there was an error
   }
 
-  Future<List<dynamic>?> fetchTaskWorkscopeItemInspection(
-      {int page = 1, int limit = 10}) async {
-    final url = Uri.parse(
-        '$_baseUrl/tasks/getTaskWorkscopeItemInspections?page=$page&limit=$limit');
-    int retryCount = 0;
+  Future<List<dynamic>?> fetchTaskWorkscopeItemInspection() async {
+    final url =
+        Uri.parse('$_baseUrl/tasks/getTaskWorkscopeItemInspections/210/47');
 
-    while (retryCount < 3) {
-      // Retry up to 3 times
-      try {
-        final response = await http
-            .get(url, headers: _getHeaders())
-            .timeout(Duration(seconds: 180));
+    try {
+      final response = await http.get(url, headers: _getHeaders());
 
-        if (response.statusCode == 200) {
-          return jsonDecode(response.body);
-        } else {
-          log('Failed to load data from API: ${response.statusCode} - ${response.body}');
-        }
-      } catch (e) {
-        log('Error in API call: $e');
-        retryCount++;
-        await Future.delayed(Duration(seconds: 2)); // Wait before retrying
+      if (response.statusCode == 200) {
+        return jsonDecode(response.body);
+      } else {
+        log('Failed to load data from API: ${response.statusCode} - ${response.body}');
       }
+    } catch (e) {
+      log('Error in API call: $e');
     }
     return null;
   }
@@ -443,7 +435,7 @@ class ApiService {
 
   Future<List<dynamic>?> fetchEquipmentCertificate() async {
     final url = Uri.parse(
-        '$_baseUrl/equipments/getEquipmentEx/210'); // Endpoint for fetching task expired notifications
+        '$_baseUrl/equipments/getEquipmentCerts/210'); // Endpoint for fetching task expired notifications
 
     try {
       final response = await http.get(url, headers: _getHeaders());
@@ -498,6 +490,24 @@ class ApiService {
   Future<List<dynamic>?> fetchEquipmentDrops() async {
     final url = Uri.parse(
         '$_baseUrl/equipments/getEquipmentDrops/210'); // Endpoint for fetching task expired notifications
+
+    try {
+      final response = await http.get(url, headers: _getHeaders());
+      if (response.statusCode == 200) {
+        return jsonDecode(response
+            .body); // Return the list of task expired notifications if successful
+      } else {
+        log('Failed to load data from API: ${response.statusCode} - ${response.body}');
+      }
+    } catch (e) {
+      log('Error in API call: $e');
+    }
+    return null;
+  }
+
+  Future<List<dynamic>?> fetchTask() async {
+    final url = Uri.parse(
+        '$_baseUrl/tasks/getTasks/210/48'); // Endpoint for fetching task expired notifications
 
     try {
       final response = await http.get(url, headers: _getHeaders());

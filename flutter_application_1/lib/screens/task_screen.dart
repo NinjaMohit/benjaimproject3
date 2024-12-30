@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/inspectionsummary.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
+
+import '../controllers/tasks-controllers/task_controller.dart';
+import '../models/task-models/task_model.dart';
 
 class TaskScreen extends StatefulWidget {
   const TaskScreen({super.key});
@@ -11,13 +15,52 @@ class TaskScreen extends StatefulWidget {
 }
 
 class _TaskScreenState extends State<TaskScreen> {
-  List cardData = [1, 2, 3];
-  List color = [
-    const Color.fromARGB(255, 218, 40, 28),
-    const Color.fromRGBO(233, 151, 28, 1),
-    const Color.fromARGB(255, 83, 193, 86)
-  ];
-  List data = ["Overdue", "Expiring", "Complete"];
+  TaskController taskController = Get.put(TaskController());
+
+  TextEditingController searchController = TextEditingController();
+
+  // Method to filter the task list based on search input
+  List<TaskModel> get filteredTaskList {
+    final query = searchController.text.toLowerCase();
+    if (query.isEmpty) {
+      return taskController.taskList
+          .toList(); // Return full task list when search is empty
+    }
+    return taskController.taskList
+        .where((task) => (task.title.toLowerCase() ?? '')
+            .contains(query)) // Safely handle null values
+        .toList();
+  }
+
+  Map<int, Map<String, dynamic>> taskStatusDetails = {
+    1: {"label": "Pending", "color": Colors.orange},
+    2: {"label": "Completed", "color": Colors.green},
+    3: {"label": "Overdue", "color": Colors.red},
+    4: {"label": "Expiring", "color": Colors.yellow},
+  };
+
+  String getTaskStatusLabel(int? status) {
+    return taskStatusDetails[status]?["label"] ?? "Unknown";
+  }
+
+  Color getTaskStatusColor(int? status) {
+    return taskStatusDetails[status]?["color"] ?? Colors.grey;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    searchController.addListener(() {
+      taskController.updateSearchKeyword(searchController.text);
+    });
+  }
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     var widthm = MediaQuery.of(context).size.width;
@@ -83,7 +126,7 @@ class _TaskScreenState extends State<TaskScreen> {
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
-                            HexColor("##555356"),
+                            HexColor("#555356"),
                             HexColor("#FAFAFA"),
                           ],
                           begin: Alignment.topCenter,
@@ -102,6 +145,10 @@ class _TaskScreenState extends State<TaskScreen> {
                         ],
                       ),
                       child: TextFormField(
+                        controller: searchController,
+                        onChanged: (value) {
+                          taskController.updateSearchKeyword(value);
+                        },
                         decoration: InputDecoration(
                           fillColor: Colors.transparent,
                           filled: true,
@@ -116,116 +163,298 @@ class _TaskScreenState extends State<TaskScreen> {
                             borderSide: BorderSide.none,
                           ),
                         ),
-                        keyboardType: TextInputType.emailAddress,
+                        keyboardType: TextInputType.text,
                       ),
                     ),
                   ),
                   SizedBox(
-                    height: height * 2.5,
-                  ),
-                  Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {},
-                        child: Container(
-                          alignment: Alignment.centerLeft,
-                          padding: const EdgeInsets.only(left: 0),
-                          height: height * 6.3,
-                          width: width * 37.3,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                HexColor("#555356"),
-                                HexColor("#FAFAFA"),
-                              ],
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              stops: const [0.0, 0.15],
-                            ),
-                            color: HexColor("#FAFAFA"),
-                            borderRadius: BorderRadius.circular(3),
-                            boxShadow: [
-                              BoxShadow(
-                                color: HexColor("#12669d"),
-                                spreadRadius: 0,
-                                blurRadius: 2,
-                                offset: const Offset(0, 5),
-                              ),
-                            ],
-                          ),
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              fillColor: Colors.transparent,
-                              filled: true,
-                              hintText: "Search Type",
-                              hintStyle: GoogleFonts.inter(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400,
-                                color: HexColor("#000000"),
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(6),
-                                borderSide: BorderSide.none,
-                              ),
-                            ),
-                            keyboardType: TextInputType.emailAddress,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: width * 5,
-                      ),
-                      GestureDetector(
-                        onTap: () {},
-                        child: Container(
-                          alignment: Alignment.centerLeft,
-                          padding: const EdgeInsets.only(left: 0),
-                          height: height * 6.3,
-                          width: width * 37.3,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                HexColor("#555356"),
-                                HexColor("#FAFAFA"),
-                              ],
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              stops: const [0.0, 0.15],
-                            ),
-                            color: HexColor("#FAFAFA"),
-                            borderRadius: BorderRadius.circular(3),
-                            boxShadow: [
-                              BoxShadow(
-                                color: HexColor("#12669d"),
-                                spreadRadius: 0,
-                                blurRadius: 2,
-                                offset: const Offset(0, 5),
-                              ),
-                            ],
-                          ),
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              fillColor: Colors.transparent,
-                              filled: true,
-                              hintText: "Filter Status",
-                              hintStyle: GoogleFonts.inter(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400,
-                                color: HexColor("#000000"),
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(6),
-                                borderSide: BorderSide.none,
-                              ),
-                            ),
-                            keyboardType: TextInputType.emailAddress,
-                          ),
-                        ),
-                      ),
-                    ],
+                    height: height * 2,
                   ),
                   SizedBox(
-                    height: height * 2,
+                    width: width * 80,
+                  ),
+                  // child: Row(
+                  //   children: [
+                  //     // Dropdown for Task Status
+
+                  //     Expanded(
+                  //       child: Obx(
+                  //         () => Container(
+                  //           height: height * 6.3,
+                  //           padding:
+                  //               const EdgeInsets.symmetric(horizontal: 8),
+                  //           decoration: BoxDecoration(
+                  //             gradient: LinearGradient(
+                  //               colors: [
+                  //                 HexColor("#555356"),
+                  //                 HexColor("#FAFAFA"),
+                  //               ],
+                  //               begin: Alignment.topCenter,
+                  //               end: Alignment.bottomCenter,
+                  //               stops: const [0.0, 0.15],
+                  //             ),
+                  //             color: HexColor("#FAFAFA"),
+                  //             borderRadius: BorderRadius.circular(3),
+                  //             boxShadow: [
+                  //               BoxShadow(
+                  //                 color: HexColor("#12669d"),
+                  //                 spreadRadius: 0,
+                  //                 blurRadius: 2,
+                  //                 offset: const Offset(0, 5),
+                  //               ),
+                  //             ],
+                  //           ),
+                  //           child: DropdownButton<String>(
+                  //             isExpanded: true,
+                  //             value: taskController.selectedType.value,
+                  //             hint: Text(
+                  //               "Search Type",
+                  //               style: GoogleFonts.inter(
+                  //                 fontSize: 16,
+                  //                 fontWeight: FontWeight.w400,
+                  //                 color: HexColor("#000000"),
+                  //               ),
+                  //             ),
+                  //             items: taskController.taskTypes.entries
+                  //                 .map((entry) => DropdownMenuItem<String>(
+                  //                       value: entry.key,
+                  //                       child: Text(
+                  //                         entry.value,
+                  //                         style: GoogleFonts.inter(
+                  //                           fontSize: 16,
+                  //                           fontWeight: FontWeight.w400,
+                  //                           color: HexColor("#000000"),
+                  //                         ),
+                  //                       ),
+                  //                     ))
+                  //                 .toList(),
+                  //             onChanged: (value) {
+                  //               if (value != null) {
+                  //                 taskController.updateType(value);
+                  //               }
+                  //             },
+                  //             icon: const SizedBox.shrink(),
+                  //             underline: const SizedBox.shrink(),
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //     SizedBox(width: width * 5),
+
+                  //     Expanded(
+                  //       child: Obx(
+                  //         () => Container(
+                  //           height: height * 6.3,
+                  //           padding:
+                  //               const EdgeInsets.symmetric(horizontal: 8),
+                  //           margin: EdgeInsets.only(),
+                  //           decoration: BoxDecoration(
+                  //             gradient: LinearGradient(
+                  //               colors: [
+                  //                 HexColor("#555356"),
+                  //                 HexColor("#FAFAFA"),
+                  //               ],
+                  //               begin: Alignment.topCenter,
+                  //               end: Alignment.bottomCenter,
+                  //               stops: const [0.0, 0.15],
+                  //             ),
+                  //             color: HexColor("#FAFAFA"),
+                  //             borderRadius: BorderRadius.circular(3),
+                  //             boxShadow: [
+                  //               BoxShadow(
+                  //                 color: HexColor("#12669d"),
+                  //                 spreadRadius: 0,
+                  //                 blurRadius: 2,
+                  //                 offset: const Offset(0, 5),
+                  //               ),
+                  //             ],
+                  //           ),
+                  //           child: DropdownButton<String>(
+                  //             isExpanded: true,
+                  //             icon: const SizedBox.shrink(),
+                  //             underline: const SizedBox.shrink(),
+                  //             value: taskController.selectedStatus.value,
+                  //             hint: Text(
+                  //               "Search Status",
+                  //               style: GoogleFonts.inter(
+                  //                 fontSize: 16,
+                  //                 fontWeight: FontWeight.w400,
+                  //                 color: HexColor("#000000"),
+                  //               ),
+                  //             ),
+                  //             items: taskController.taskStatus.entries
+                  //                 .map((entry) => DropdownMenuItem<String>(
+                  //                       value: entry.key,
+                  //                       child: Text(
+                  //                         entry.value,
+                  //                         style: GoogleFonts.inter(
+                  //                           fontSize: 16,
+                  //                           fontWeight: FontWeight.w400,
+                  //                           color: HexColor("#000000"),
+                  //                         ),
+                  //                       ),
+                  //                     ))
+                  //                 .toList(),
+                  //             onChanged: (value) {
+                  //               if (value != null) {
+                  //                 taskController.updateStatus(value);
+                  //               }
+                  //             },
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ), // Dropdown for Task Type
+                  //   ],
+                  // ),
+                  SizedBox(
+                    width: width * 80,
+                    child: Row(
+                      children: [
+                        // Dropdown for Task Status
+                        Expanded(
+                          flex: 1,
+                          child: Obx(
+                            () => Container(
+                              width: width * 30, // 40% of the screen width
+                              height: height * 6.3,
+                              margin: const EdgeInsets.symmetric(vertical: 4),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 12),
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    HexColor("#555356"),
+                                    HexColor("#FAFAFA"),
+                                  ],
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  stops: const [0.0, 0.15],
+                                ),
+                                color: HexColor("#FAFAFA"),
+                                borderRadius: BorderRadius.circular(3),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: HexColor("#12669d"),
+                                    spreadRadius: 0,
+                                    blurRadius: 2,
+                                    offset: const Offset(0, 5),
+                                  ),
+                                ],
+                              ),
+                              alignment: Alignment
+                                  .center, // Center the text vertically
+                              child: DropdownButton<String>(
+                                isExpanded: true,
+                                icon: const SizedBox.shrink(),
+                                underline: const SizedBox.shrink(),
+                                value:
+                                    taskController.selectedStatus.value.isEmpty
+                                        ? null
+                                        : taskController.selectedStatus.value,
+                                hint: Text(" Search Status",
+                                    style: GoogleFonts.inter(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w400,
+                                      color: HexColor("#000000"),
+                                    )),
+                                items: taskController.taskStatus.entries
+                                    .map((entry) => DropdownMenuItem<String>(
+                                          value: entry.key,
+                                          child: Text(
+                                            entry.value,
+                                            style: GoogleFonts.inter(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w400,
+                                              color: HexColor("#000000"),
+                                            ),
+                                          ),
+                                        ))
+                                    .toList(),
+                                onChanged: (value) {
+                                  if (value != null) {
+                                    taskController.updateStatus(value);
+                                  }
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                            width: width * 3), // Add spacing between dropdowns
+                        // Dropdown for Task Type
+                        Expanded(
+                          flex: 1,
+                          child: Obx(
+                            () => Container(
+                              width: width * 30, // 40% of the screen width
+                              height: height * 6.3,
+                              margin: const EdgeInsets.symmetric(vertical: 4),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 12),
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    HexColor("#555356"),
+                                    HexColor("#FAFAFA"),
+                                  ],
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  stops: const [0.0, 0.15],
+                                ),
+                                color: HexColor("#FAFAFA"),
+                                borderRadius: BorderRadius.circular(3),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: HexColor("#12669d"),
+                                    spreadRadius: 0,
+                                    blurRadius: 2,
+                                    offset: const Offset(0, 4),
+                                  ),
+                                ],
+                              ),
+                              alignment: Alignment
+                                  .center, // Center the text vertically
+                              child: DropdownButton<String>(
+                                isExpanded: true,
+                                icon: const SizedBox.shrink(),
+                                underline: const SizedBox.shrink(),
+                                value: taskController.selectedType.value.isEmpty
+                                    ? null
+                                    : taskController.selectedType.value,
+                                hint: Text(" Search Type",
+                                    style: GoogleFonts.inter(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w400,
+                                      color: HexColor("#000000"),
+                                    )),
+                                items: taskController.taskTypes.entries
+                                    .map((entry) => DropdownMenuItem<String>(
+                                          value: entry.key,
+                                          child: Text(
+                                            entry.value,
+                                            style: GoogleFonts.inter(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w400,
+                                              color: HexColor("#000000"),
+                                            ),
+                                          ),
+                                        ))
+                                    .toList(),
+                                onChanged: (value) {
+                                  if (value != null) {
+                                    taskController.updateType(value);
+                                  }
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  SizedBox(
+                    height: height * 1,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -234,7 +463,7 @@ class _TaskScreenState extends State<TaskScreen> {
                         child: Text(
                           "Tasks",
                           style: GoogleFonts.inter(
-                            fontSize: 17,
+                            fontSize: 20,
                             fontWeight: FontWeight.w700,
                             color: HexColor("#000000"),
                           ),
@@ -243,7 +472,7 @@ class _TaskScreenState extends State<TaskScreen> {
                     ],
                   ),
                   SizedBox(
-                    height: height * 1,
+                    height: height * 0.2,
                   ),
                   Container(
                     height: 5,
@@ -254,105 +483,154 @@ class _TaskScreenState extends State<TaskScreen> {
               ),
             ),
             Expanded(
-              child: ListView.builder(
-                itemCount: cardData.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.only(
-                        top: height * 0,
-                        bottom: height * 0,
-                        left: width * 4,
-                        right: height * 2),
-                    child: Card(
-                      elevation: 10,
-                      shadowColor: Colors.black,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      child: SizedBox(
-                        height: height * 15, // Responsive height
-                        width: width * 80, // Responsive width
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(
-                                top: height * 1.7,
-                                left: width * 2,
-                                bottom: height * 1,
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Tasks title',
-                                    style: GoogleFonts.inter(
-                                      fontSize: 14,
-                                      color: HexColor("#000000"),
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                  const Spacer(), // Responsive spacing
-                                  Text(
-                                    'Due Date',
-                                    style: GoogleFonts.inter(
-                                      fontSize: 14,
-                                      color: HexColor("#000000"),
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: height * 1,
-                                  )
-                                ],
-                              ),
-                            ),
-                            SizedBox(width: width * 7),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                top: height * 1.7,
-                                left: width * 2,
-                                bottom: height * 1,
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Spacer(),
-                                  Text(
-                                    'Remainings Days',
-                                    style: GoogleFonts.inter(
-                                      fontSize: 14,
-                                      color: HexColor("#000000"),
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: height * 1,
-                                  )
-                                ],
-                              ),
-                            ),
-                            const Spacer(),
-                            Container(
-                                alignment: Alignment.center,
-                                margin: const EdgeInsets.all(3),
-                                height: height * 14, // Responsive height
-                                width: width * 23, // Responsive width
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(4),
-                                    color: color[index]),
-                                child: Text(
-                                  data[index],
-                                  style: GoogleFonts.inter(
-                                    fontSize: 14,
-                                    color: HexColor("#000000"),
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                )),
-                          ],
+              child: Obx(
+                () {
+                  // Show loading indicator while data is being fetched
+                  if (taskController.isLoading.value) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+
+                  // Use filtered list for display
+                  final tasks = taskController.filteredTaskList;
+
+                  // Check if the task list is empty
+                  if (tasks.isEmpty) {
+                    return Center(
+                      child: Text(
+                        "No tasks found",
+                        style: GoogleFonts.inter(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                          color: HexColor("#000000"),
                         ),
                       ),
-                    ),
+                    );
+                  }
+
+                  return ListView.builder(
+                    itemCount: tasks.length,
+                    itemBuilder: (context, index) {
+                      final task = taskController.filteredTaskList[index];
+
+                      return Padding(
+                        padding: EdgeInsets.only(
+                            top: height * 0,
+                            bottom: height * 0,
+                            left: width * 4,
+                            right: height * 2),
+                        child: Card(
+                          elevation: 10,
+                          shadowColor: Colors.black,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: SizedBox(
+                            height: height * 16, // Responsive height
+                            width: width * 80, // Responsive width
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.only(
+                                      top: height * 1.3,
+                                      left: width * 2,
+                                      bottom: height * 1,
+                                    ),
+                                    child: SizedBox(
+                                      width: width * 50,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            task.title,
+                                            style: GoogleFonts.inter(
+                                              fontSize: 13,
+                                              color: HexColor("#000000"),
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                            maxLines: 4,
+                                            overflow: TextOverflow
+                                                .ellipsis, // Optional: Handle overflow if the text doesn't fit
+                                          ),
+                                          const Spacer(), // Responsive spacing
+                                          Text(
+                                            task.title != null
+                                                ? task.nextDays ?? 'Due Date'
+                                                : 'Due Date',
+                                            style: GoogleFonts.inter(
+                                              fontSize: 13,
+                                              color: HexColor("#000000"),
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: height * 0.5,
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.only(
+                                      top: height * 1.7,
+                                      left: width * 2,
+                                      bottom: height * 1,
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Spacer(),
+                                        Text(
+                                          // ignore: unnecessary_null_comparison
+                                          task.title != null
+                                              ? (task.nextDays ??
+                                                  'Remaining Days')
+                                              : 'Remaining Days',
+                                          style: GoogleFonts.inter(
+                                            fontSize: 13,
+                                            color: HexColor("#000000"),
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: height * 0.5,
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  alignment: Alignment.center,
+                                  margin: const EdgeInsets.all(3),
+                                  height: height * 14, // Responsive height
+                                  width: width * 23, // Responsive width
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(4),
+                                    color: getTaskStatusColor(
+                                        task.taskStatus), // Dynamic color
+                                  ),
+                                  child: Text(
+                                    getTaskStatusLabel(
+                                        task.taskStatus), // Dynamic label
+                                    style: GoogleFonts.inter(
+                                      fontSize: 14,
+                                      color: Colors
+                                          .white, // Adjust contrast for readability
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                   );
                 },
               ),

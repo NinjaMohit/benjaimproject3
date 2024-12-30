@@ -19,6 +19,7 @@ import '../models/task-models/task_equipment_model.dart';
 import '../models/task-models/task_expired_notification_model.dart';
 import '../models/task-models/task_expiring_notification_send_dates.dart';
 import '../models/task-models/task_inspectiontype_model.dart';
+import '../models/task-models/task_model.dart';
 import '../models/task-models/task_notifications_model.dart';
 import '../models/task-models/task_summary_doc_model.dart';
 import '../models/task-models/task_summary_status_model.dart';
@@ -43,7 +44,7 @@ class DBHelper {
 
     return await openDatabase(
       path,
-      version: 1, // Incremented version
+      version: 2, // Incremented version
       onCreate: (db, version) async {
         await _createUserTables(db);
         await _createFrameworkCertificateTable(db);
@@ -75,6 +76,7 @@ class DBHelper {
         await _createEquipmentExTable(db);
         await _createEquipmentStandardTable(db);
         await _createEquipmentDropsTable(db);
+        await _createTaskTable(db);
       },
       onUpgrade: (db, oldVersion, newVersion) async {
         // Handle database upgrade logic if needed
@@ -281,15 +283,17 @@ class DBHelper {
 //task_inspection_type==http://localhost:3000/api/v1/tasks/getInspectionTypes
   Future<void> _createTaskInspectionTypeTable(Database db) async {
     try {
-      await db.execute(
-        'CREATE TABLE task_inspection_type ('
-        'inspection_id INTEGER PRIMARY KEY AUTOINCREMENT, '
-        'inspection_title TEXT NOT NULL, '
-        'inspection_type_image TEXT, '
-        'status INTEGER NOT NULL, '
-        'created_at TEXT DEFAULT NULL'
-        ')',
-      );
+      await db.execute('''
+CREATE TABLE task_inspection_type(
+  idNo INTEGER PRIMARY KEY AUTOINCREMENT,
+ inspection_id INTEGER, 
+ inspection_title TEXT NOT NULL, 
+ inspection_type_image TEXT, 
+ status INTEGER NOT NULL, 
+ created_at TEXT DEFAULT NULL
+)
+''');
+
       log('task_inspection_type table created successfully');
     } catch (e) {
       log('Error creating task_inspection_type table: $e');
@@ -298,47 +302,110 @@ class DBHelper {
 
   Future<void> insertTaskInspectionType(
       List<TaskInspectionTypeModel> inspectionTypesList) async {
-    final db = await database; // Get the database instance
+    final db = await database;
 
     try {
-      // Use batch to group multiple insert operations
-      Batch batch = db.batch();
+      await db.transaction((txn) async {
+        final batch = txn.batch();
 
-      for (var inspectionType in inspectionTypesList) {
-        batch.insert(
-          'task_inspection_type',
-          inspectionType.toJson(),
-          conflictAlgorithm: ConflictAlgorithm.replace,
-        );
-      }
+        // Add each insert to the batch
+        for (var inspectionType in inspectionTypesList) {
+          batch.insert(
+            'task_inspection_type',
+            inspectionType.toJson(),
+            conflictAlgorithm: ConflictAlgorithm.ignore,
+          );
+        }
 
-      // Commit the batch of operations to the database
-      await batch.commit(
-          noResult: true); // Use noResult: true for performance improvement
-      log('Inserted ${inspectionTypesList.length} Task Inspection Type entries');
+        // Commit the batch and capture the results
+        final results = await batch.commit();
 
-      // Optional: Print inserted data for verification
-      //  await printInsertedData(); // Ensure this method is implemented in DBHelper
+        // Each result is an ID for the respective inserted row
+        for (int i = 0; i < results.length; i++) {
+          inspectionTypesList[i].idNo = results[i] as int;
+        }
+
+        print(
+            "SUCCESS: All task inspection types inserted with batch operation.");
+      });
     } catch (e) {
-      log('Error inserting task inspection types: $e');
+      print(
+          "Failed to insert task inspection types with batch operation: ${e.toString()}");
     }
   }
 
-// // Method to fetch and print all records from the task_inspection_type table
-//   Future<void> printInsertedData() async {
-//     final db = await database; // Get the database instance
+  Future<void> insertSingleTaskInspectionType(
+      TaskInspectionTypeModel inspectionType) async {
+    final db = await database;
+    try {
+      // Insert the record and get the auto-incremented ID
+      int newId = await db.insert(
+        'task_inspection_type',
+        inspectionType.toJson(),
+        conflictAlgorithm:
+            ConflictAlgorithm.ignore, // Use the appropriate conflict strategy
+      );
+      inspectionType.idNo = newId; // Set the generated ID to the model
+      print("Inserted single inspection type with idNo: $newId");
+    } catch (e) {
+      print("Failed to insert single inspection type: ${e.toString()}");
+    }
+  }
 
-//     try {
-//       final List<Map<String, dynamic>> records =
-//           await db.query('task_inspection_type');
+  Future<void> updateTaskInspectionType(
+      TaskInspectionTypeModel inspectionType) async {
+    final db = await database;
+    try {
+      // Update the record by matching the idNo
+      int affectedRows = await db.update(
+        'task_inspection_type',
+        inspectionType.toJson(),
+        where: 'idNo = ?',
+        whereArgs: [inspectionType.idNo],
+      );
+      print(
+          "Updated inspection type with idNo: ${inspectionType.idNo}, Rows affected: $affectedRows");
+    } catch (e) {
+      print("Failed to update inspection type: ${e.toString()}");
+    }
+  }
 
-//       for (var record in records) {
-//         log('Inserted Record: $record'); // Log each inserted record
-//       }
-//     } catch (e) {
-//       log('Error fetching inserted data: $e');
-//     }
-//   }
+  Future<void> deleteTaskInspectionType(int idNo) async {
+    final db = await database;
+    try {
+      // Delete the record by idNo
+      int deletedRows = await db.delete(
+        'task_inspection_type',
+        where: 'idNo = ?',
+        whereArgs: [idNo],
+      );
+      print(
+          "Deleted inspection type with idNo: $idNo, Rows deleted: $deletedRows");
+    } catch (e) {
+      print("Failed to delete inspection type: ${e.toString()}");
+    }
+  }
+
+  Future<List<TaskInspectionTypeModel>> getAllTaskInspectionTypes() async {
+    final db = await database;
+    try {
+      // Query the table to get all records
+      final List<Map<String, dynamic>> result =
+          await db.query('task_inspection_type');
+
+      // Convert the result to a list of TaskInspectionTypeModel objects
+      List<TaskInspectionTypeModel> inspectionTypes = result.map((data) {
+        return TaskInspectionTypeModel.fromJson(data);
+      }).toList();
+
+      // Optionally, print the fetched data for debugging purposes
+      print('Fetched task inspection types: ${inspectionTypes.length} items');
+      return inspectionTypes;
+    } catch (e) {
+      print("Failed to fetch task inspection types: ${e.toString()}");
+      return [];
+    }
+  }
 
   //********************************************** */
   //framework_organisation==http://localhost:3000/api/v1/frameworks/getLocations
@@ -1489,7 +1556,7 @@ class DBHelper {
           conflictAlgorithm: ConflictAlgorithm.replace,
         );
       }
-      await printInsertedTaskWorkscopeItemInspectionData();
+      // await printInsertedTaskWorkscopeItemInspectionData();
       await batch.commit(noResult: true); // For better performance
       log('Inserted ${inspectionList.length} Task Workscope Item Inspections');
     } catch (e) {
@@ -1497,20 +1564,20 @@ class DBHelper {
     }
   }
 
-  Future<void> printInsertedTaskWorkscopeItemInspectionData() async {
-    final db = await database; // Get the database instance
+  // Future<void> printInsertedTaskWorkscopeItemInspectionData() async {
+  //   final db = await database; // Get the database instance
 
-    try {
-      final List<Map<String, dynamic>> records =
-          await db.query('task_workscope_item_inspection');
+  //   try {
+  //     final List<Map<String, dynamic>> records =
+  //         await db.query('task_workscope_item_inspection');
 
-      for (var record in records) {
-        log('Inserted Record: $record'); // Log each inserted record
-      }
-    } catch (e) {
-      log('Error fetching inserted task workscope item inspection data: $e');
-    }
-  }
+  //     for (var record in records) {
+  //       log('Inserted Record: $record'); // Log each inserted record
+  //     }
+  //   } catch (e) {
+  //     log('Error fetching inserted task workscope item inspection data: $e');
+  //   }
+  // }
 
   //*************************task_workscope_specific_equipment************************ */
   // task_workscope_specific_equipment==http://localhost:3000/api/v1/tasks/getTaskWorkscopeSpecificEquipment/9f6YHLau8WVwvuGXF
@@ -2071,18 +2138,139 @@ class DBHelper {
     }
   }
 
-  // Future<void> printInsertedEquipmentDropData() async {
-  //   final db = await database; // Get the database instance
+  Future<void> _createTaskTable(Database db) async {
+    try {
+      await db.execute('''
+    CREATE TABLE task (
+    task_idNo  INTEGER PRIMARY KEY AUTOINCREMENT,
+      task_id INTEGER,
+      title TEXT NOT NULL,
+      task_key TEXT NOT NULL,
+      start_date TEXT NOT NULL,
+      start_inspection_date TEXT NOT NULL,
+      start_inspection_date_on_app TEXT,
+      task_inspection_key TEXT NOT NULL,
+      location INTEGER NOT NULL,
+      is_reoccuring INTEGER NOT NULL,
+      system_task INTEGER NOT NULL,
+      system_email_users TEXT NOT NULL,
+      assigned_to INTEGER NOT NULL,
+      task_days_hours TEXT NOT NULL DEFAULT 'd',
+      last_days TEXT,
+      next_days TEXT,
+      valid_days TEXT NOT NULL,
+      remaining_days REAL NOT NULL,
+      last_hours REAL NOT NULL DEFAULT 0,
+      remaining_hours REAL NOT NULL DEFAULT 0,
+      current_hours REAL NOT NULL DEFAULT 0,
+      valid_hours REAL NOT NULL DEFAULT 0,
+      comments TEXT,
+      status INTEGER NOT NULL DEFAULT 1,
+      last_status_before_expiring INTEGER NOT NULL DEFAULT 1,
+      task_status INTEGER NOT NULL DEFAULT 1,
+      overdue INTEGER NOT NULL,
+      complete_date TEXT,
+      hours_on_completion REAL NOT NULL,
+      next_completion_hrs REAL NOT NULL DEFAULT 0,
+      is_approved INTEGER NOT NULL,
+      completed_by TEXT NOT NULL,
+      all_cert_status INTEGER NOT NULL,
+      ex_workscope INTEGER NOT NULL,
+      exzone_workscope TEXT,
+      drops_workscope INTEGER NOT NULL,
+      tubular_workscope INTEGER NOT NULL DEFAULT 0,
+      dropzone_workscope TEXT NOT NULL,
+      task_type INTEGER NOT NULL DEFAULT 1,
+      critical INTEGER NOT NULL DEFAULT 0,
+      task_end_flag INTEGER NOT NULL DEFAULT 0,
+      inspection_type INTEGER NOT NULL DEFAULT 1,
+      PIC TEXT,
+      PIC_no TEXT,
+      PTW_number TEXT,
+      summary_inspection_comment TEXT,
+      summary_inspector_signature TEXT,
+      summary_inspector_name TEXT,
+      summary_approval_name TEXT,
+      summary_approval_signature TEXT,
+      city_address TEXT,
+      gps TEXT,
+      standard_ref TEXT,
+      default_workscope_sort TEXT NOT NULL DEFAULT 'serial',
+      is_hold INTEGER NOT NULL DEFAULT 0,
+      workscope_is_available INTEGER NOT NULL DEFAULT 0,
+      total_major_cert INTEGER NOT NULL DEFAULT 0,
+      template_id TEXT,
+      template_positions TEXT,
+      total_intermediate_cert INTEGER NOT NULL DEFAULT 0,
+      admin_will_task_out INTEGER NOT NULL DEFAULT 0,
+      workscope_is_available_bk INTEGER NOT NULL,
+      created_by INTEGER NOT NULL,
+      created_on TEXT,
+      updated_by INTEGER NOT NULL,
+      updated_on TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      sync_date TEXT NOT NULL
+    )
+    ''');
 
-  //   try {
-  //     final List<Map<String, dynamic>> records =
-  //         await db.query('equipment_drops');
+      log('task table created successfully');
+    } catch (e) {
+      log('Error creating task table: $e');
+    }
+  }
 
-  //     for (var record in records) {
-  //       log('Inserted drops Record ********: $record'); // Log each inserted record
-  //     }
-  //   } catch (e) {
-  //     log('Error fetching inserted equipment drops data: $e');
-  //   }
-  // }
+  Future<void> insertTasks(List<TaskModel> tasksList) async {
+    final db = await database; // Get the database instance
+
+    try {
+      Batch batch = db.batch();
+
+      for (var task in tasksList) {
+        batch.insert(
+          'task',
+          task.toJson(),
+          conflictAlgorithm: ConflictAlgorithm.ignore,
+        );
+      }
+
+      log('Inserted ${tasksList.length} Task entries');
+      await printTask();
+      await batch.commit(noResult: true); // For better performance
+    } catch (e) {
+      log('Error inserting tasks: $e');
+    }
+  }
+
+  Future<void> printTask() async {
+    final db = await database; // Get the database instance
+
+    try {
+      final List<Map<String, dynamic>> records = await db.query('task');
+
+      for (var record in records) {
+        log('Inserted Task Record ********: $record'); // Log each inserted record
+      }
+    } catch (e) {
+      log('Error fetching inserted task data: $e');
+    }
+  }
+
+  Future<List<TaskModel>> getAllTask() async {
+    final db = await database;
+    try {
+      // Query the table to get all records
+      final List<Map<String, dynamic>> result = await db.query('task');
+
+      // Convert the result to a list of TaskInspectionTypeModel objects
+      List<TaskModel> task = result.map((data) {
+        return TaskModel.fromJson(data);
+      }).toList();
+
+      // Optionally, print the fetched data for debugging purposes
+      print('Fetched task **********: ${task.length} items');
+      return task;
+    } catch (e) {
+      print("Failed to fetch task: ${e.toString()}");
+      return [];
+    }
+  }
 }

@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter_application_1/screens/forgot_pass.dart';
@@ -8,13 +10,10 @@ import 'database/db_helper.dart';
 import 'screens/success_forgetpass.dart';
 
 Future<void> main() async {
-  // Initialize FFI for database
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Now initialize your database after setting up databaseFactory
   await DBHelper().database;
 
-  // Run the app after everything is initialized
   runApp(const MyApp());
 }
 

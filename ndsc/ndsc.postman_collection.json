@@ -1,0 +1,949 @@
+{
+	"info": {
+		"_postman_id": "458e25b9-4dba-4c0f-a929-ea9e252f9085",
+		"name": "ndsc",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "29978647"
+	},
+	"item": [
+		{
+			"name": "http://localhost:3000/api/v1/auth",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\" : \"satyamrigteam@gmail.com\",\r\n    \"password\" : \"123456789\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/v1/auth"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/v1/users/114",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExMiwiZW1haWwiOiJzYXR5YW1yaWd0ZWFtQGdtYWlsLmNvbSIsImlhdCI6MTcyNzAwMzk1OH0.T2SY_JT3S0aOrtYVFXtDrWjY7T1HbeXV_WvzqeD3QFg"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/v1/users/114"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/v1/auth/tasks/getInspectionTypes",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExMiwiZW1haWwiOiJzYXR5YW1yaWd0ZWFtQGdtYWlsLmNvbSIsImlhdCI6MTcyNzAwMzk1OH0.T2SY_JT3S0aOrtYVFXtDrWjY7T1HbeXV_WvzqeD3QFg"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/v1/tasks/getInspectionTypes"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/v1/frameworks/getLocations",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExMiwiZW1haWwiOiJzYXR5YW1yaWd0ZWFtQGdtYWlsLmNvbSIsImlhdCI6MTcyNzAwMzk1OH0.T2SY_JT3S0aOrtYVFXtDrWjY7T1HbeXV_WvzqeD3QFg"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/v1/frameworks/getLocations"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/v1/frameworks/getLocation/210",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExMiwiZW1haWwiOiJzYXR5YW1yaWd0ZWFtQGdtYWlsLmNvbSIsImlhdCI6MTcyNjk0NzE3NX0.hW1XjBwuH8wGJLxBltB3Qi4tFBX_Jux6Y2ahoKKD5f4"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/v1/frameworks/getLocation/210"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/v1/frameworks/getCertificates",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExMiwiZW1haWwiOiJzYXR5YW1yaWd0ZWFtQGdtYWlsLmNvbSIsImlhdCI6MTcyNjk0NzE3NX0.hW1XjBwuH8wGJLxBltB3Qi4tFBX_Jux6Y2ahoKKD5f4"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/v1/frameworks/getCertificates"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/v1/frameworks/getCertificate/210",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExMiwiZW1haWwiOiJzYXR5YW1yaWd0ZWFtQGdtYWlsLmNvbSIsImlhdCI6MTcyNjk0NzE3NX0.hW1XjBwuH8wGJLxBltB3Qi4tFBX_Jux6Y2ahoKKD5f4"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/v1/frameworks/getCertificate/210"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/v1/frameworks/getIndicators",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExMiwiZW1haWwiOiJzYXR5YW1yaWd0ZWFtQGdtYWlsLmNvbSIsImlhdCI6MTcyNjk0NzE3NX0.hW1XjBwuH8wGJLxBltB3Qi4tFBX_Jux6Y2ahoKKD5f4"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/v1/frameworks/getIndicators"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/v1/frameworks/getIndicator/210",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExMiwiZW1haWwiOiJzYXR5YW1yaWd0ZWFtQGdtYWlsLmNvbSIsImlhdCI6MTcyNjk0NzE3NX0.hW1XjBwuH8wGJLxBltB3Qi4tFBX_Jux6Y2ahoKKD5f4"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/v1/frameworks/getIndicator/210"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/v1/frameworks/getFrmCorrectiveActions",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExMiwiZW1haWwiOiJzYXR5YW1yaWd0ZWFtQGdtYWlsLmNvbSIsImlhdCI6MTcyNjk0NzE3NX0.hW1XjBwuH8wGJLxBltB3Qi4tFBX_Jux6Y2ahoKKD5f4"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/v1/frameworks/getFrmCorrectiveActions"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/v1/frameworks/getFrmCorrectiveAction/82",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExMiwiZW1haWwiOiJzYXR5YW1yaWd0ZWFtQGdtYWlsLmNvbSIsImlhdCI6MTcyNjk0NzE3NX0.hW1XjBwuH8wGJLxBltB3Qi4tFBX_Jux6Y2ahoKKD5f4"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/v1/frameworks/getFrmCorrectiveAction/82"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/v1/frameworks/getFrameworkEquipmentCerts",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExMiwiZW1haWwiOiJzYXR5YW1yaWd0ZWFtQGdtYWlsLmNvbSIsImlhdCI6MTcyNjk0NzE3NX0.hW1XjBwuH8wGJLxBltB3Qi4tFBX_Jux6Y2ahoKKD5f4"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/v1/frameworks/getFrmEquipmentCerts"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/v1/frameworks/getFrmEquipmentEx",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExMiwiZW1haWwiOiJzYXR5YW1yaWd0ZWFtQGdtYWlsLmNvbSIsImlhdCI6MTcyNjk0NzE3NX0.hW1XjBwuH8wGJLxBltB3Qi4tFBX_Jux6Y2ahoKKD5f4"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/v1/frameworks/getFrmEquipmentEx"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/v1/frameworks/getFrmEquipmentStandard",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExMiwiZW1haWwiOiJzYXR5YW1yaWd0ZWFtQGdtYWlsLmNvbSIsImlhdCI6MTcyODU2MDAyM30.-0TBGTcK89xlhZWiamYxJQOV8q-rUOPUrm2Rlw9q8X4"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3000/api/v1/frameworks/getFrmEquipmentStandard"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/v1/frameworks/getFrameworkEquipments/210",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExMiwiZW1haWwiOiJzYXR5YW1yaWd0ZWFtQGdtYWlsLmNvbSIsImlhdCI6MTcyNjk0NzE3NX0.hW1XjBwuH8wGJLxBltB3Qi4tFBX_Jux6Y2ahoKKD5f4"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/v1/frameworks/getFrameworkEquipments"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/v1/frameworks/getFrameworkEquipment/210",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExMiwiZW1haWwiOiJzYXR5YW1yaWd0ZWFtQGdtYWlsLmNvbSIsImlhdCI6MTcyNjk0NzE3NX0.hW1XjBwuH8wGJLxBltB3Qi4tFBX_Jux6Y2ahoKKD5f4"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/v1/frameworks/getFrameworkEquipment/210"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/v1/tasks/getTaskequipments/TUaDsUwXpkLKJYsC1",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExMiwiZW1haWwiOiJzYXR5YW1yaWd0ZWFtQGdtYWlsLmNvbSIsImlhdCI6MTcyNjk0NzE3NX0.hW1XjBwuH8wGJLxBltB3Qi4tFBX_Jux6Y2ahoKKD5f4"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/v1/tasks/getTaskequipments/TUaDsUwXpkLKJYsC1"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/v1/tasks/getTaskequipment/TUaDsUwXpkLKJYsC1",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExMiwiZW1haWwiOiJzYXR5YW1yaWd0ZWFtQGdtYWlsLmNvbSIsImlhdCI6MTcyNjk0NzE3NX0.hW1XjBwuH8wGJLxBltB3Qi4tFBX_Jux6Y2ahoKKD5f4"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/v1/tasks/getTaskequipment/V2Gd71gszPVQbdPKj"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/v1/tasks/getTaskExpiredNotifications",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExMiwiZW1haWwiOiJzYXR5YW1yaWd0ZWFtQGdtYWlsLmNvbSIsImlhdCI6MTcyNjk0NzE3NX0.hW1XjBwuH8wGJLxBltB3Qi4tFBX_Jux6Y2ahoKKD5f4"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/v1/tasks/getTaskExpiredNotifications"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/v1/tasks/getTaskExpiringNotifications",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExMiwiZW1haWwiOiJzYXR5YW1yaWd0ZWFtQGdtYWlsLmNvbSIsImlhdCI6MTcyNjk0NzE3NX0.hW1XjBwuH8wGJLxBltB3Qi4tFBX_Jux6Y2ahoKKD5f4"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/v1/tasks/getTaskExpiringNotifications"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/v1/tasks/getTaskNotifications",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExMiwiZW1haWwiOiJzYXR5YW1yaWd0ZWFtQGdtYWlsLmNvbSIsImlhdCI6MTcyNjk0NzE3NX0.hW1XjBwuH8wGJLxBltB3Qi4tFBX_Jux6Y2ahoKKD5f4"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/v1/tasks/getTaskNotifications"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/v1/tasks/getTaskNotifications Copy",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExMiwiZW1haWwiOiJzYXR5YW1yaWd0ZWFtQGdtYWlsLmNvbSIsImlhdCI6MTcyNjk0NzE3NX0.hW1XjBwuH8wGJLxBltB3Qi4tFBX_Jux6Y2ahoKKD5f4"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/v1/tasks/getTaskNotification/tdWkxND6OlpAk7L4a"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/v1/tasks/getTaskSummaryDoc/wdRwzBOuHJFE67lvA",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExMiwiZW1haWwiOiJzYXR5YW1yaWd0ZWFtQGdtYWlsLmNvbSIsImlhdCI6MTcyNjk0NzE3NX0.hW1XjBwuH8wGJLxBltB3Qi4tFBX_Jux6Y2ahoKKD5f4"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/v1/tasks/getTaskSummaryDocs/wdRwzBOuHJFE67lvA"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/v1/tasks/getTaskSummaryImgs/wdRwzBOuHJFE67lvA",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExMiwiZW1haWwiOiJzYXR5YW1yaWd0ZWFtQGdtYWlsLmNvbSIsImlhdCI6MTcyNjk0NzE3NX0.hW1XjBwuH8wGJLxBltB3Qi4tFBX_Jux6Y2ahoKKD5f4"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/v1/tasks/getTaskSummaryImgs/wdRwzBOuHJFE67lvA"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/v1/tasks/getTaskSummarys/2iWl8WhvhHjH8Wth8",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExMiwiZW1haWwiOiJzYXR5YW1yaWd0ZWFtQGdtYWlsLmNvbSIsImlhdCI6MTcyNjk0NzE3NX0.hW1XjBwuH8wGJLxBltB3Qi4tFBX_Jux6Y2ahoKKD5f4"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/v1/tasks/getTaskSummarys/2iWl8WhvhHjH8Wth8"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/v1/tasks/getTaskWorkscopeCertIndicator/IgJnkuf13yggQFI8R",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExMiwiZW1haWwiOiJzYXR5YW1yaWd0ZWFtQGdtYWlsLmNvbSIsImlhdCI6MTcyNjk0NzE3NX0.hW1XjBwuH8wGJLxBltB3Qi4tFBX_Jux6Y2ahoKKD5f4"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/v1/tasks/getTaskWorkscopeCertIndicator/IgJnkuf13yggQFI8R"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/v1/tasks/getTaskWorkscopeItems/13jiPDYTFqiYkE4pI",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExMiwiZW1haWwiOiJzYXR5YW1yaWd0ZWFtQGdtYWlsLmNvbSIsImlhdCI6MTcyNjk0NzE3NX0.hW1XjBwuH8wGJLxBltB3Qi4tFBX_Jux6Y2ahoKKD5f4"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/v1/tasks/getTaskWorkscopeItems/13jiPDYTFqiYkE4pI"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/v1/tasks/getTaskWorkscopeItemInspections",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExMiwiZW1haWwiOiJzYXR5YW1yaWd0ZWFtQGdtYWlsLmNvbSIsImlhdCI6MTcyNjk0NzE3NX0.hW1XjBwuH8wGJLxBltB3Qi4tFBX_Jux6Y2ahoKKD5f4"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"task_workscope_key\": \"13jiPDYTFqiYkE4pI\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/v1/tasks/getTaskWorkscopeItemInspections"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/v1/tasks/getTaskWorkscopeSpecificEquipment/9f6YHLau8WVwvuGXF",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExMiwiZW1haWwiOiJzYXR5YW1yaWd0ZWFtQGdtYWlsLmNvbSIsImlhdCI6MTcyNjk0NzE3NX0.hW1XjBwuH8wGJLxBltB3Qi4tFBX_Jux6Y2ahoKKD5f4"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/v1/tasks/getTaskWorkscopeSpecificEquipment/9f6YHLau8WVwvuGXF"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/v1/equipments/getCorrectiveActions/57",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExMiwiZW1haWwiOiJzYXR5YW1yaWd0ZWFtQGdtYWlsLmNvbSIsImlhdCI6MTcyNjk0NzE3NX0.hW1XjBwuH8wGJLxBltB3Qi4tFBX_Jux6Y2ahoKKD5f4"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/v1/equipments/getCorrectiveActions/57"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/v1/equipments/getEquipments/210",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExMiwiZW1haWwiOiJzYXR5YW1yaWd0ZWFtQGdtYWlsLmNvbSIsImlhdCI6MTcyNjk0NzE3NX0.hW1XjBwuH8wGJLxBltB3Qi4tFBX_Jux6Y2ahoKKD5f4"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/v1/equipments/getEquipments/210"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/v1/equipments/getEquipmentCerts/210",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExMiwiZW1haWwiOiJzYXR5YW1yaWd0ZWFtQGdtYWlsLmNvbSIsImlhdCI6MTcyNjk0NzE3NX0.hW1XjBwuH8wGJLxBltB3Qi4tFBX_Jux6Y2ahoKKD5f4"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/v1/equipments/getEquipmentCerts/210"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/v1/equipments/getEquipmentEx/210",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExMiwiZW1haWwiOiJzYXR5YW1yaWd0ZWFtQGdtYWlsLmNvbSIsImlhdCI6MTcyODU2MDAyM30.-0TBGTcK89xlhZWiamYxJQOV8q-rUOPUrm2Rlw9q8X4"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3000/api/v1/equipments/getEquipmentEx/210"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/v1/equipments/getEquipmentStandard/210",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExMiwiZW1haWwiOiJzYXR5YW1yaWd0ZWFtQGdtYWlsLmNvbSIsImlhdCI6MTcyNjk0NzE3NX0.hW1XjBwuH8wGJLxBltB3Qi4tFBX_Jux6Y2ahoKKD5f4"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/v1/equipments/getEquipmentStandard/210"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/v1/equipments/getEquipmentDrops/210",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExMiwiZW1haWwiOiJzYXR5YW1yaWd0ZWFtQGdtYWlsLmNvbSIsImlhdCI6MTcyNjk0NzE3NX0.hW1XjBwuH8wGJLxBltB3Qi4tFBX_Jux6Y2ahoKKD5f4"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/v1/equipments/getEquipmentDrops/210"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/v1/equipments/tree",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExMiwiZW1haWwiOiJzYXR5YW1yaWd0ZWFtQGdtYWlsLmNvbSIsImlhdCI6MTcyNjk0NzE3NX0.hW1XjBwuH8wGJLxBltB3Qi4tFBX_Jux6Y2ahoKKD5f4"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/v1/frameworks/tree"
+			},
+			"response": []
+		}
+	]
+}

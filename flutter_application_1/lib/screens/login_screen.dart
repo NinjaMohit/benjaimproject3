@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../controllers/account_controller.dart';
+import '../controllers/tasks-controllers/task_controller.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -13,10 +14,13 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends State<LoginScreen>
+    with SingleTickerProviderStateMixin {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool? isChecked = true;
+  TaskController taskController = Get.put(TaskController());
+  late AnimationController _animationController;
 
   String? dropdownvalue;
 
@@ -379,13 +383,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           Get.to(() => CertificateView());
 
                           clear();
-                          // } else {
-                          //   Get.snackbar(
-                          //     'Error',
-                          //     'Invalid login credentials!',
-                          //     snackPosition: SnackPosition.BOTTOM,
-                          //   );
-                          // }
+                          //   } else {
+                          //     Get.snackbar(
+                          //       'Error',
+                          //       'Invalid login credentials!',
+                          //       snackPosition: SnackPosition.BOTTOM,
+                          //     );
+                          //   }
                         },
                         child: Container(
                           alignment: Alignment.center,
@@ -428,3 +432,4 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
+//                          width: width * 37.3,

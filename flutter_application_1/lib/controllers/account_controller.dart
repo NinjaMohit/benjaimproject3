@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:flutter_application_1/screens/test_screen.dart';
 import 'package:get/get.dart';
 import '../database/db_helper.dart';
 import '../models/account.dart';
@@ -48,7 +47,7 @@ class AccountController extends GetxController {
       if (userCredentials['username'] == username &&
           userCredentials['password'] == password) {
         // Successful login
-        Get.to(() => CertificateView());
+        //Get.to(() => CertificateView());
 
         return true; // Login successful
       } else {

@@ -4,15 +4,14 @@ import 'package:flutter_application_1/controllers/equipments_controllers/equipme
 import 'package:flutter_application_1/controllers/equipments_controllers/equipment_drop_controller.dart';
 import 'package:flutter_application_1/controllers/equipments_controllers/equipment_ex_controller.dart';
 import 'package:flutter_application_1/controllers/equipments_controllers/equipment_standard_controller.dart';
-import 'package:flutter_application_1/controllers/tasks-controllers/task_equipment_controller.dart';
+import 'package:flutter_application_1/controllers/tasks-controllers/task_controller.dart';
 import 'package:flutter_application_1/controllers/tasks-controllers/task_expired_notifications_controller.dart';
 import 'package:flutter_application_1/controllers/tasks-controllers/task_expiring_notification_send_dates_controller.dart';
 import 'package:flutter_application_1/controllers/tasks-controllers/task_notifications_controller.dart';
-import 'package:flutter_application_1/controllers/tasks-controllers/task_summary_controller.dart';
-import 'package:flutter_application_1/controllers/tasks-controllers/task_summary_status_controller.dart';
 import 'package:flutter_application_1/controllers/tasks-controllers/task_workscope_Item_Inspection_controller.dart';
 import 'package:flutter_application_1/controllers/tasks-controllers/task_workscope_cert_indicator_controller.dart';
 import 'package:flutter_application_1/controllers/tasks-controllers/task_workscope_item_controller.dart';
+import 'package:flutter_application_1/screens/forgot_pass.dart';
 import 'package:flutter_application_1/test/uiframework_certificate.dart';
 import 'package:flutter_application_1/test/uiframeworkcertificateIndicator.dart';
 import 'package:flutter_application_1/test/uiframeworkcorrectiveaction.dart';
@@ -21,7 +20,6 @@ import 'package:flutter_application_1/test/uitaskinspectiontype.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
-
 import '../controllers/equipments_controllers/equipment_basic_controller.dart';
 import '../controllers/framework_controllers/framework_certificate_indicator_controller.dart';
 import '../controllers/framework_controllers/framework_certificate_controller.dart';
@@ -32,7 +30,6 @@ import '../controllers/framework_controllers/framework_equipment_standard_contro
 import '../controllers/framework_controllers/framework_equipmet_ex_controller.dart';
 import '../controllers/framework_controllers/framework_orgaisation_controller.dart';
 import '../controllers/tasks-controllers/task_inspection_type_controller.dart';
-import '../controllers/tasks-controllers/task_workscope_specific_equipment_controller.dart';
 
 class CertificateView extends StatefulWidget {
   const CertificateView({super.key});
@@ -74,9 +71,6 @@ class _CertificateViewState extends State<CertificateView>
   final TaskInspectionTypeController taskInspectionTypeController =
       Get.put(TaskInspectionTypeController());
 
-  final TaskEquipmentController taskEquipmentController =
-      Get.put(TaskEquipmentController());
-
   final TaskExpiredNotificationsController taskExpiredNotificationsController =
       Get.put(TaskExpiredNotificationsController());
 
@@ -87,11 +81,6 @@ class _CertificateViewState extends State<CertificateView>
   final TaskNotificationController taskNotificationController =
       Get.put(TaskNotificationController());
 
-  final TaskSummaryDocController taskSummaryDocController =
-      Get.put(TaskSummaryDocController());
-  final TaskSummaryStatusController taskSummaryStatusController =
-      Get.put(TaskSummaryStatusController());
-
   final TaskWorkscopeCertIndicatorController
       taskWorkscopeCertIndicatorController =
       Get.put(TaskWorkscopeCertIndicatorController());
@@ -101,9 +90,6 @@ class _CertificateViewState extends State<CertificateView>
   final TaskWorkscopeItemInspectionController
       taskWorkscopeItemInspectionController =
       Get.put(TaskWorkscopeItemInspectionController());
-  final TaskWorkscopeSpecificEquipmentController
-      taskWorkscopeSpecificEquipmentController =
-      Get.put(TaskWorkscopeSpecificEquipmentController());
 
   final EquipmentCorrectiveActionController
       equipmentCorrectiveActionController =
@@ -121,6 +107,8 @@ class _CertificateViewState extends State<CertificateView>
 
   final EquipmentDropController equipmentDropController =
       Get.put(EquipmentDropController());
+
+  final TaskController taskController = Get.put(TaskController());
 
   @override
   void initState() {
@@ -140,23 +128,23 @@ class _CertificateViewState extends State<CertificateView>
     _fetchFrameworkEquipmentEx();
     _fetchFrameworkEquipmentStandards();
     _fetchFrameworkEquipmentBasic();
-    _fetchTaskEquipment();
+    //_fetchTaskEquipment();
     _fetchTaskExpiredNotifications();
     _taskExpiringNotificationSendDateControl();
     _taskNotifications();
-    _taskSummaryDocs();
-    _taskSummaryStatus();
+    //_taskSummaryDocs();
+    //_taskSummaryStatus();
     _taskWorkscopeCertIndicator();
     _taskWorkscopeItem();
     taskWorkscopeItemInspection();
-    _taskWorkscopeSpecificEquipment();
-
+    //_taskWorkscopeSpecificEquipment();
     _equipmentCorrectiveAction();
     _equipmentBasic();
     _equipmentCertificate();
     _equipmentEx();
     _equipmentStandard();
     _equipmentDrops();
+    _fetchTask();
   }
 
   @override
@@ -223,12 +211,17 @@ class _CertificateViewState extends State<CertificateView>
     frameworkEquipmentBasicController.isLoading.value = false; // End loading
   }
 
-  Future<void> _fetchTaskEquipment() async {
-    taskEquipmentController.isLoading.value = true; // Start loading
-    await taskEquipmentController
-        .fetchTaskEquipment(); // Fetching task equipment
-    taskEquipmentController.isLoading.value = false; // End loading
+  Future<void> _fetchTask() async {
+    taskController.isLoading.value = true;
+    await taskController.fetchTasks();
+    taskController.isLoading.value = false;
   }
+  // Future<void> _fetchTaskEquipment() async {
+  //   taskEquipmentController.isLoading.value = true; // Start loading
+  //   await taskEquipmentController
+  //       .fetchTaskEquipment(); // Fetching task equipment
+  //   taskEquipmentController.isLoading.value = false; // End loading
+  // }
 
   Future<void> _fetchTaskExpiredNotifications() async {
     taskExpiredNotificationsController.isLoading.value = true; // Start loading
@@ -252,20 +245,6 @@ class _CertificateViewState extends State<CertificateView>
     await taskNotificationController
         .fetchTaskNotifications(); // Fetching task equipment
     taskNotificationController.isLoading.value = false; // End loading
-  }
-
-  Future<void> _taskSummaryDocs() async {
-    taskSummaryDocController.isLoading.value = true; // Start loading
-    await taskSummaryDocController.fetchTaskSummaryDocs();
-    // Fetching task equipment
-    taskSummaryDocController.isLoading.value = false; // End loading
-  }
-
-  Future<void> _taskSummaryStatus() async {
-    taskSummaryStatusController.isLoading.value = true; // Start loading
-    await taskSummaryStatusController.fetchTaskSummaryStatus();
-    // Fetching task equipment
-    taskSummaryStatusController.isLoading.value = false; // End loading
   }
 
   Future<void> _taskWorkscopeCertIndicator() async {
@@ -297,16 +276,16 @@ class _CertificateViewState extends State<CertificateView>
   }
 
 // taskWorkscopeSpecificEquipmentController
-  Future<void> _taskWorkscopeSpecificEquipment() async {
-    taskWorkscopeSpecificEquipmentController.isLoading.value =
-        true; // Start loading
-    await taskWorkscopeSpecificEquipmentController
-        .fetchTaskWorkscopeSpecificEquipments();
+  // Future<void> _taskWorkscopeSpecificEquipment() async {
+  //   taskWorkscopeSpecificEquipmentController.isLoading.value =
+  //       true; // Start loading
+  //   await taskWorkscopeSpecificEquipmentController
+  //       .fetchTaskWorkscopeSpecificEquipments();
 
-    // Fetching task equipment
-    taskWorkscopeSpecificEquipmentController.isLoading.value =
-        false; // End loading
-  }
+  //   // Fetching task equipment
+  //   taskWorkscopeSpecificEquipmentController.isLoading.value =
+  //       false; // End loading
+  //}
 
   //   equipmentCorrectiveActionController =
 
@@ -367,7 +346,7 @@ class _CertificateViewState extends State<CertificateView>
     double height = heightm / 100;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Certificates')),
+      appBar: AppBar(title: const Text('Data Fetching')),
       body: Obx(() {
         if (frameworkCertController.isLoading.value &&
             taskInspectionTypeController.isLoading.value &&
@@ -376,12 +355,19 @@ class _CertificateViewState extends State<CertificateView>
             frameworkEquipmentCertController.isLoading.value &&
             frameworkEquipmentExController.isLoading.value &&
             frameworkEquipmentBasicController.isLoading.value &&
-            taskEquipmentController.isLoading.value &&
             taskExpiredNotificationsController.isLoading.value &&
             taskExpiringNotificationSendDateController.isLoading.value &&
             taskNotificationController.isLoading.value &&
-            taskSummaryDocController.isLoading.value &&
-            taskSummaryStatusController.isLoading.value) {
+            taskInspectionTypeController.isLoading.value &&
+            taskWorkscopeCertIndicatorController.isLoading.value &&
+            taskWorkscopeItemController.isLoading.value &&
+            equipmentCorrectiveActionController.isLoading.value &&
+            equipmentCertificateController.isLoading.value &&
+            equipmentBasicController.isLoading.value &&
+            equipmentExController.isLoading.value &&
+            equipmentStandardController.isLoading.value &&
+            equipmentDropController.isLoading.value &&
+            taskController.isLoading.value) {
           return Center(
             child: Column(
               children: [
@@ -424,9 +410,53 @@ class _CertificateViewState extends State<CertificateView>
             frameworkEquipmentExController.equipmentExList.isEmpty &&
             frameworkEquipmentBasicController.equipmentBasicList.isEmpty) {
           return Center(
-            child: ElevatedButton(
-              onPressed: () => frameworkCertController.fetchCertificates(),
-              child: const Text('Load Certificates'),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: height * 15,
+                ),
+                ElevatedButton(
+                  onPressed: () => frameworkCertController.fetchCertificates(),
+                  child: const Text('Load Certificates'),
+                ),
+                SizedBox(
+                  height: height * 6,
+                ),
+                GestureDetector(
+                  onTap: () async {
+                    //  Get.to(() => TaskInspectionTypeScreen());
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ForgetPass()));
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: height * 5,
+                    width: width * 80,
+                    decoration: BoxDecoration(
+                      color: HexColor("#FFCA11"),
+                      borderRadius: BorderRadius.circular(4),
+                      boxShadow: [
+                        BoxShadow(
+                          color: HexColor("4c4c4c"), // Shadow color
+                          spreadRadius: 0, // How much the shadow spreads
+                          blurRadius: 2,
+                          // The blur effect for the shadow
+                          offset: const Offset(0, 4), // Position of the shadow
+                        ),
+                      ],
+                    ),
+                    child: Text(
+                      'Next Page',
+                      style: GoogleFonts.inter(
+                          fontSize: 20,
+                          color: HexColor("#FFFFFF"),
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ),
+              ],
             ),
           );
         }
@@ -591,6 +621,43 @@ class _CertificateViewState extends State<CertificateView>
                   ),
                   child: Text(
                     'framework_certificate_indicators',
+                    style: GoogleFonts.inter(
+                        fontSize: 20,
+                        color: HexColor("#FFFFFF"),
+                        fontWeight: FontWeight.w500),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: height * 3,
+              ),
+              GestureDetector(
+                onTap: () async {
+                  //  Get.to(() => TaskInspectionTypeScreen());
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ForgetPass()));
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  height: height * 5,
+                  width: width * 80,
+                  decoration: BoxDecoration(
+                    color: HexColor("#FFCA11"),
+                    borderRadius: BorderRadius.circular(4),
+                    boxShadow: [
+                      BoxShadow(
+                        color: HexColor("4c4c4c"), // Shadow color
+                        spreadRadius: 0, // How much the shadow spreads
+                        blurRadius: 2,
+                        // The blur effect for the shadow
+                        offset: const Offset(0, 4), // Position of the shadow
+                      ),
+                    ],
+                  ),
+                  child: Text(
+                    'Next Page',
                     style: GoogleFonts.inter(
                         fontSize: 20,
                         color: HexColor("#FFFFFF"),

@@ -56,23 +56,26 @@ class TaskWorkscopeItemModel {
     this.updatedOn, // Allow null
     required this.syncDate,
   });
-
-  // Factory constructor for creating a model from JSON data
   factory TaskWorkscopeItemModel.fromJson(Map<String, dynamic> json) {
     return TaskWorkscopeItemModel(
       taskWorkscopeId: json['task_workscope_id'],
-      taskWorkscopeKey: json['task_workscope_key'],
+      taskWorkscopeKey: json['task_workscope_key'] ??
+          '', // Provide default empty string if null
       taskEquipmentId: json['task_equipment_id'],
-      taskEquipmentKey: json['task_equipment_key'],
+      taskEquipmentKey: json['task_equipment_key'] ??
+          '', // Provide default empty string if null
       taskWorkscopeSpecificId: json['task_workscope_specific_id'],
-      taskWorkscopeSpecificKey: json['task_workscope_specific_key'],
+      taskWorkscopeSpecificKey: json['task_workscope_specific_key'] ??
+          '', // Provide default empty string if null
       taskId: json['task_id'],
-      taskKey: json['task_key'],
+      taskKey: json['task_key'] ?? '', // Provide default empty string if null
       frmEquipmentId: json['frm_equipment_id'],
       equipmentId: json['equipment_id'],
-      equipmentKey: json['equipment_key'],
+      equipmentKey:
+          json['equipment_key'] ?? '', // Provide default empty string if null
       certId: json['cert_id'],
-      equipmentCertKey: json['equipment_cert_key'],
+      equipmentCertKey: json['equipment_cert_key'] ??
+          '', // Provide default empty string if null
       workStartDate: DateTime.parse(json['work_start_date']),
       workEndDate: DateTime.parse(json['work_end_date']),
       isUnexpirable: json['is_unexpirable'],
@@ -81,7 +84,8 @@ class TaskWorkscopeItemModel {
       isDeleted: json['is_deleted'],
       certCheckbox: json['cert_checkbox'],
       correctiveId: json['corrective_id'],
-      correctiveKey: json['corrective_key'],
+      correctiveKey:
+          json['corrective_key'] ?? '', // Provide default empty string if null
       createdBy: json['created_by'],
       createdOn: DateTime.parse(json['created_on']),
       updatedBy: json['updated_by'],

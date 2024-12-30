@@ -29,6 +29,7 @@ class TaskInspectionTypeController extends GetxController {
 
         // Insert fetched task inspection types into the database in batch
         await dbHelper.insertTaskInspectionType(taskInspectionTypesList);
+        await loadLocalTaskInspectionTypes();
       } else {
         throw Exception('No task inspection types fetched');
       }
@@ -38,5 +39,51 @@ class TaskInspectionTypeController extends GetxController {
     } finally {
       isLoading.value = false; // Set loading to false after fetching is done
     }
+  }
+
+  // Fetch all task inspection types from the local database
+  Future<void> loadLocalTaskInspectionTypes() async {
+    final List<TaskInspectionTypeModel> localInspectionTypes =
+        await dbHelper.getAllTaskInspectionTypes();
+    taskInspectionTypesList.value = localInspectionTypes;
+    // print("Fetched task inspection types from local database:");
+    // for (var inspectionType in taskInspectionTypesList) {
+    //   log("----------------------------------------+${inspectionType.toJson()}");
+    // }
+    // log("${taskInspectionTypesList.length}");
+  }
+
+  // Insert a single inspection type
+  Future<void> addTaskInspectionType(
+      TaskInspectionTypeModel inspectionType) async {
+    await dbHelper.insertSingleTaskInspectionType(inspectionType);
+    taskInspectionTypesList.add(inspectionType); // Update the observable list
+  }
+
+  // Update an existing inspection type
+  Future<void> updateTaskInspectionType(
+      TaskInspectionTypeModel inspectionType) async {
+    // Ensure idNo is not null and update the correct instance
+    if (inspectionType.idNo != null) {
+      try {
+        await dbHelper.updateTaskInspectionType(inspectionType);
+        int index = taskInspectionTypesList
+            .indexWhere((element) => element.idNo == inspectionType.idNo);
+        if (index != -1) {
+          taskInspectionTypesList[index] =
+              inspectionType; // Update the observable list
+        }
+      } catch (e) {
+        print('Update Error: $e'); // Log the error for debugging
+        throw Exception('Failed to update task inspection type');
+      }
+    }
+  }
+
+  // Delete an inspection type by id
+  Future<void> removeTaskInspectionType(int idNo) async {
+    await dbHelper.deleteTaskInspectionType(idNo);
+    taskInspectionTypesList.removeWhere((element) => element.idNo == idNo);
+    // Update the observable list
   }
 }
